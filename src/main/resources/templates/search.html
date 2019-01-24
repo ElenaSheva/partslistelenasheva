@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>Search</title>
+	<link rel="stylesheet" type="text/css"
+		  href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+	<div class="container">
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="/">Home</a></li>
+				<li><a href="/addPart">Add...</a></li>
+				<li class="active"><a href="/search">Search...</a></li>
+				<li><a href="/sort">Sort...</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container">
+
+	<div class="container">
+		<form class="form-horizontal" th:action="@{/search}" name="input_form" id="input_form"
+			  method="get" role="form">
+			<div class="form-group">
+				<input type="text" class="form-control" id="name" th:name="name" placeholder="Enter part name:" maxlength="100" style="width: 400px"/>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Search...</button>
+		</form>
+	</div>
+	<br/><br/>
+	<table border="1">
+		<tr>
+			<th>Partname</th>
+			<th>Necessary</th>
+			<th>Quantity</th>
+		</tr>
+		<tr th:each ="part : ${partsList}">
+			<td th:utext="${part.partname}">...</td>
+			<td th:utext="${part.getTextFromNecessary()}">...</td>
+			<td th:utext="${part.quantity}">...</td>
+		</tr>
+	</table>
+	<br/><br/>
+</div>
+<script type="text/javascript"
+		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Parts Application</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css"
+	href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<link rel="stylesheet" th:href="@{/css/style.css}"
+	href="../../css/style.css" />
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+				<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/">Home</a></li>
+					<li><a href="/addPart">Add...</a></li>
+					<li><a href="/search">Search...</a></li>
+					<li><a href="/sort">Sort...</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+
+		<div class="starter-template">
+			<h1>Welcome to Parts of Elena Sheva</h1>
+			<br/>
+
+			<h2 align="center">Parts List</h2>
+			<table class="tg" align="center">
+				<tr>
+					<th>Partname</th>
+					<th>Necessary</th>
+					<th>Quantity</th>
+					<th width="60">Edit</th>
+                    <th width="60">Delete</th>
+				</tr>
+				<tr th:each ="part : ${listParts}">
+					<td th:utext="${part.partname}">...</td>
+					<td th:utext="${part.getTextFromNecessary()}">...</td>
+					<td th:utext="${part.quantity}">...</td>
+					<td style="text-align: center"><a th:href="@{'/edit/{id}'(id=${part.id})}">Edit</a></td>
+					<td style="text-align: center"><a th:href="@{'/delete/{id}'(id=${part.id})}">Delete</a></td>
+				</tr>
+			</table>
+			<br/><br/>
+			<table class="pagination-sm" align="center" th:unless="${listParts.size()} == 0">
+				<tr>
+
+					<td><a  href="#" class="navbar-brand" th:href="@{'/?page={page}'(page=1)}" style="font-size:16px">&larr; First</a></td>
+
+					<td style="text-align:center" th:if="${number} == 1">
+						<a class="navbar-brand" th:href="@{'/?page={page}'(page=1)}" style="font-size:16px">&laquo;</a>
+					</td>
+
+
+					<td style="text-align:center" th:unless="${number} == 1">
+						<a class="navbar-brand" th:href="@{'/?page={page}'(page=${number} - 1)}" style="font-size:16px">&laquo;</a>
+					</td>
+					<td class="nav navbar-nav" style="text-align:center;background-color:#337ab7">
+						<a class="navbar-brand" th:href="@{'/?page={page}'(page=${number})}" style="font-size:16px; color:#ffffff">
+							<b th:text="${number}">Number</b>
+							<b>/</b>
+							<b th:text="${maxPages}">Number</b>
+						</a>
+					</td>
+
+					<td style="text-align:center" th:if="${number} == ${maxPages}">
+						<a class="navbar-brand" th:href="@{'/?page={page}'(page=${number})}" style="font-size:16px">&raquo;</a>
+					</td>
+
+					<td style="text-align:center" th:unless="${number} == ${maxPages}">
+						<a class="navbar-brand" th:href="@{'/?page={page}'(page=${number} + 1)}" style="font-size:16px" >&raquo;</a>
+					</td>
+
+
+					<td><a class="navbar-brand" th:href="@{'/?page={page}'(page=${maxPages})}" style="font-size:16px">Last &rarr;</a></td>
+
+				</tr>
+			</table>
+
+			<h2>
+				<span th:text="'Count of Computers: ' + ${minCountOfComputer}"></span>
+			</h2>
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+	<script type="text/javascript"
+		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+</html>

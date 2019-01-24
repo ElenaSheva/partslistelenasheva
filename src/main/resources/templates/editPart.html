@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>Edit</title>
+	<link rel="stylesheet" type="text/css"
+		  href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+	<div class="container">
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="/">Home</a></li>
+				<li><a href="/addPart">Add...</a></li>
+				<li><a href="/search">Search...</a></li>
+				<li><a href="/sort">Sort...</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="container">
+		<form class="form-horizontal" th:object="${part}" th:action="@{/update}" name="edit_form" id="edit_form"
+			  method="post" role="form">
+			<div class="form-group">
+				<input type="hidden" id="id" th:name="id" th:value="*{id}"/>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" id="name" th:name="name" th:value="*{partname}" maxlength="100" style="width: 400px"/>
+			</div>
+
+			<div class="form-group">
+				<input type="number" value="1" min="0" class="form-control" id="quantity" th:name="quantity" th:value="*{quantity}" style="width: 100px" />
+			</div>
+			<div class="form-group">
+				<div class="form-check">
+					<input th:if="${part.necessary}" class="form-check-input" type="checkbox" id="necessary" checked="checked" th:name="necessary"/>
+					<input th:unless="${part.necessary}" class="form-check-input" type="checkbox" id="necessary2" th:name="necessary"/>
+					<label class="form-check-label" for="necessary">
+						Necessary?
+					</label>
+				</div>
+			</div>
+			<br/><br/>
+			<button type="submit" class="btn btn-primary">Edit</button>
+		</form>
+	</div>
+	<br/><br/>
+</div>
+<script type="text/javascript"
+		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
